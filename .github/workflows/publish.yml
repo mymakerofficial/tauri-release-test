@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'v*' # This will trigger the workflow on any tag that starts with 'v'.
+      - v* # This will trigger the workflow on any tag that starts with 'v'.
 
 jobs:
   publish-tauri:
