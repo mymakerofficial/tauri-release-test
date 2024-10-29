@@ -18,11 +18,15 @@ async function greet() {
 async function handleUpdate() {
   await update.value?.downloadAndInstall((e) => {
     event.value = e
-  })
+  }).catch(alert)
+}
+
+async function handleCheck() {
+  update.value = await check().catch(alert) ?? null
 }
 
 onMounted(async () => {
-  update.value = await check()
+  await handleCheck()
 })
 </script>
 
@@ -49,13 +53,14 @@ onMounted(async () => {
     </form>
     <p>{{ greetMsg }}</p>
 
-    <p>Hello I am version 0.3.5</p>
+    <p>Hello I am version 0.3.6</p>
 
     <div>
       <p>Update</p>
       <pre>{{ update ?? "null" }}</pre>
       <p>Event</p>
       <pre>{{ event ?? "null" }}</pre>
+      <button @click="handleCheck">check</button>
       <button @click="handleUpdate">update</button>
       <button @click="relaunch">relaunch</button>
     </div>
