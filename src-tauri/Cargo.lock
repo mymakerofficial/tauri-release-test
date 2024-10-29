@@ -3483,7 +3483,7 @@ dependencies = [
 
 [[package]]
 name = "tauri-release-test"
-version = "0.3.3"
+version = "0.3.4"
 dependencies = [
  "serde",
  "serde_json",
@@ -3781,7 +3781,7 @@ dependencies = [
 
 [[package]]
 name = "tower-service"
-version = "0.3.3"
+version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8df9b6e13f2d32c91b9bd719c00d1958837bc7dec474d94952798cc8e69eeec3"
 
