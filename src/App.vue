@@ -1,14 +1,29 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import {onMounted, ref} from "vue";
 import { invoke } from "@tauri-apps/api/core";
+import { relaunch } from '@tauri-apps/plugin-process';
+import {check, DownloadEvent, Update} from "@tauri-apps/plugin-updater";
 
 const greetMsg = ref("");
 const name = ref("");
+
+const update = ref<Update | null>(null);
+const event = ref<DownloadEvent | null>(null);
 
 async function greet() {
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
   greetMsg.value = await invoke("greet", { name: name.value });
 }
+
+async function handleUpdate() {
+  await update.value?.downloadAndInstall((e) => {
+    event.value = e
+  })
+}
+
+onMounted(async () => {
+  update.value = await check()
+})
 </script>
 
 <template>
@@ -33,6 +48,15 @@ async function greet() {
       <button type="submit">Greet</button>
     </form>
     <p>{{ greetMsg }}</p>
+
+    <div>
+      <p>Update</p>
+      <pre>{{ update ?? "null" }}</pre>
+      <p>Event</p>
+      <pre>{{ event ?? "null" }}</pre>
+      <button @click="handleUpdate">update</button>
+      <button @click="relaunch">relaunch</button>
+    </div>
   </main>
 </template>
 
