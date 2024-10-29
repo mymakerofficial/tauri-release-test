@@ -49,7 +49,7 @@ onMounted(async () => {
     </form>
     <p>{{ greetMsg }}</p>
 
-    <p>Hello I am version 0.3.4</p>
+    <p>Hello I am version 0.3.5</p>
 
     <div>
       <p>Update</p>
