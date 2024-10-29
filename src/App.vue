@@ -49,6 +49,8 @@ onMounted(async () => {
     </form>
     <p>{{ greetMsg }}</p>
 
+    <p>Hello I am version 0.3.3</p>
+
     <div>
       <p>Update</p>
       <pre>{{ update ?? "null" }}</pre>
