@@ -7,7 +7,9 @@ import {check, DownloadEvent, Update} from "@tauri-apps/plugin-updater";
 const greetMsg = ref("");
 const name = ref("");
 
-const update = ref<Update | null>(null);
+let update: Update | null = null
+
+const updateInfo = ref<string | null>(null);
 const event = ref<DownloadEvent | null>(null);
 
 async function greet() {
@@ -16,13 +18,14 @@ async function greet() {
 }
 
 async function handleUpdate() {
-  await update.value?.downloadAndInstall((e) => {
+  await update?.downloadAndInstall((e) => {
     event.value = e
   }).catch(alert)
 }
 
 async function handleCheck() {
-  update.value = await check().catch(alert) ?? null
+  update = await check().catch(alert) ?? null
+  updateInfo.value = JSON.stringify(update)
 }
 
 onMounted(async () => {
@@ -53,11 +56,11 @@ onMounted(async () => {
     </form>
     <p>{{ greetMsg }}</p>
 
-    <p>Hello I am version 0.3.7</p>
+    <p>Hello I am version 0.3.8</p>
 
     <div>
       <p>Update</p>
-      <pre>{{ update ?? "null" }}</pre>
+      <pre>{{ updateInfo ?? "null" }}</pre>
       <p>Event</p>
       <pre>{{ event ?? "null" }}</pre>
       <button @click="handleCheck">check</button>
